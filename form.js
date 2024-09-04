@@ -12,7 +12,7 @@ const createElement = (tag, text) => {
   return elem
 }
 
-const validationFn = (event) => {
+const validationFn = (event, msg) => {
   const type = event.target.type
   let isValid = false
   switch (type) {
@@ -29,7 +29,7 @@ const validationFn = (event) => {
   if (!isValid) {
     isFormValid = false
     event.target.style.border = '2px solid red'
-    const span = createElement('span', 'First name should contain only alphabets')
+    const span = createElement('span', msg)
     span.style.color = 'red'
     if (!event.target.parentNode.querySelector('span')) {
       event.target.parentNode.appendChild(span)
@@ -44,9 +44,15 @@ const validationFn = (event) => {
 }
 
 // passing function as an argument to another function
-firstName.addEventListener('focusout', validationFn)
-lastName.addEventListener('focusout', validationFn)
-email.addEventListener('focusout', validationFn)
+firstName.addEventListener('focusout', (event) => {
+  validationFn(event, "First name should contain only alphabets");
+} )
+lastName.addEventListener('focusout', (event) => {
+  validationFn(event, "Last name should contain only alphabets");
+} )
+email.addEventListener('focusout', (event) => {
+  validationFn(event, "Invalid mail Id");
+} )
 
 // Function will be elevated to the top of the file
 // also called as hoisting
